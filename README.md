@@ -16,4 +16,4 @@
 
 * SQL vs NoSQL Databases
   - SQL Databases: structured database, support ACID properties
- -  NoSQL Databases: offers schema flexibility, horizontal scalability, and are ideal for handling large scal unstructured data
+  - NoSQL Databases: offers schema flexibility, horizontal scalability, and are ideal for handling large scal unstructured data
