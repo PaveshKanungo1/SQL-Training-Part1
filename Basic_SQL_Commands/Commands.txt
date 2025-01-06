@@ -1,0 +1,90 @@
+BASIC SQL COMMANDS -
+
+1. DATA DEFINITION LANGUAGE (DDL):
+DDL commands define, modify, and delete database structures such as tables, schemas, and indexes.
+Example:
+
+1.1. CREATE: Used to create new database objects like tables.
+QUERY:
+CREATE TABLE Employees (
+    EmployeeID INT PRIMARY KEY,
+    Name VARCHAR(100),
+    Position VARCHAR(50)
+);
+
+1.2. ALTER: Used to modify the structure of an existing table.
+QUERY:
+ALTER TABLE Employees ADD DateOfBirth DATE;
+
+1.3. DROP: Deletes a database object, such as a table.
+QUERY:
+DROP TABLE Employees;
+
+_____________________________________________________________________________________________________________________
+
+2. DATA MANIPULATION LANGUAGE (DML):
+DML commands are used to query and manipulate data within database tables.
+2.1. SELECT: Retrieves data from one or more tables.
+QUERY:
+SELECT Name, Position FROM Employees WHERE Position = 'Manager';
+
+2.2. INSERT: Adds new rows of data to a table.
+QUERY:
+INSERT INTO Employees (EmployeeID, Name, Position) VALUES (1, 'Alice', 'Manager');
+
+2.3. UPDATE: Modifies existing records in a table.
+QUERY:
+UPDATE Employees SET Position = 'Senior Manager' WHERE EmployeeID = 1;
+
+2.4. DELETE: Removes specific rows from a table.
+QUERY:
+DELETE FROM Employees WHERE EmployeeID = 1;
+
+_____________________________________________________________________________________________________________________
+
+3. DATA CONTROL LANGUAGE (DCL):
+DCL commands control access to the database by granting or revoking permissions.
+
+3.1. GRANT: Provides specific permissions to users.
+QUERY:
+GRANT SELECT, INSERT ON Employees TO User1;
+
+3.2. REVOKE: Removes previously granted permissions.
+QUERY:
+REVOKE INSERT ON Employees FROM User1;
+
+_____________________________________________________________________________________________________________________
+
+4. TRANSACTION CONTROL LANGUAGE (TCL):
+TCL commands manage transactions in a database, ensuring data consistency and integrity.
+
+4.1. BEGIN: Starts a transaction.
+QUERY: 
+BEGIN TRANSACTION;
+
+4.2. COMMIT: Saves all changes made during the transaction.
+QUERY: 
+COMMIT;
+
+4.3. ROLLBACK: Undoes changes made during the transaction if an error occurs.
+QUERY:
+ROLLBACK;
+
+_____________________________________________________________________________________________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,220 @@
+* DATABASE DESIGN CONCEPTS -
+
+1. Data Modeling:
+Understanding the structure and relationships of data in a system.
+
+2. Entity-Relationship (ER) Model:
+Visual representation of entities, attributes, and relationships.
+
+3. Normalization:
+Organizing data to reduce redundancy and improve data integrity (1NF, 2NF, 3NF, BCNF).
+
+4. Denormalization:
+Combining tables to improve read performance at the cost of redundancy.
+
+5. Primary Key:
+A unique identifier for each record in a table.
+
+6. Foreign Key:
+A reference to a primary key in another table to establish relationships.
+
+7. Indexes:
+Structures to improve the speed of data retrieval operations.
+
+8. Constraints:
+Rules enforced on data, e.g., NOT NULL, UNIQUE, CHECK, FOREIGN KEY.
+
+9. Scalability:
+Designing for vertical (powerful hardware) or horizontal (distributed systems) scaling.
+
+10. Data Integrity:
+Ensuring accuracy, consistency, and validity of the data throughout its lifecycle.
+
+_______________________________________________________________________________________________________________________________
+
+* ENTITY-RELATIONSHIP (ER) MODEL - 
+
+The ER Model is a conceptual framework used to represent the structure of a database. It visually maps the relationships between data entities, attributes, and their associations. 
+Key components include:
+1. Entities: Objects or concepts (e.g., "Customer", "Order") represented as rectangles.
+2. Attributes: Properties of entities (e.g., "Name", "Order Date") represented as ovals.
+3. Relationships: Associations between entities (e.g., "Places", "Contains") represented as diamonds.
+4. Primary Key: A unique identifier for an entity.
+5. Cardinality: Defines the number of relationships (e.g., one-to-one, one-to-many, many-to-many).
+The ER model serves as a blueprint for creating a well-structured relational database.
+
+_______________________________________________________________________________________________________________________________
+
+* TABLES, ROWS AND COLUMNS - 
+
+1. Table:
+A structured collection of related data stored in rows and columns.
+Example: Employees table.
+
+2. Row (or Record):
+A single, horizontal data entry in a table, representing one instance of an entity.
+Example: A single employee's details.
+
+3. Column (or Field):
+A vertical structure in a table, representing a specific attribute of the entity.
+Example: Name, Age, Position.
+
+Together, rows and columns make up the grid-like structure of a table in relational databases.
+
+_______________________________________________________________________________________________________________________________
+
+* PRIMARY KEYS AND FOREIGN KEYS -
+
+1. Primary Key:
+A unique identifier for each record in a table.
+Ensures that no two rows in a table have the same value in the primary key column(s).
+Example: In an Employees table, EmployeeID can be the primary key.
+    Characteristics:
+        Must be unique.
+        Cannot contain NULL values.
+
+2. Foreign Key:
+A column or set of columns in a table that establishes a link to a primary key in another table.
+Ensures referential integrity by enforcing valid relationships between tables.
+Example: In an Orders table, CustomerID can be a foreign key referencing the CustomerID primary key in a Customers table.
+    Characteristics:
+        Can have duplicate values.
+        Can accept NULL if the relationship is optional.
+
+Use Case:
+        Primary keys uniquely identify records, while foreign keys connect related data across multiple tables.
+
+_______________________________________________________________________________________________________________________________
+
+* NORMALIZATION (1NF, 2NF, 3ND, BCNF) -
+
+Normalization is the process of organizing a database to reduce redundancy and improve data integrity. It involves dividing data into tables and defining relationships. Key normal forms include:
+
+1. First Normal Form (1NF):
+Description:
+    Ensures each column contains atomic (indivisible) values, and each row is unique.
+Use: 
+    Remove duplicate columns and ensure no repeating groups.
+Example:
+Before 1NF:
+
+Orders
+------------------------
+OrderID | Product1 | Product2
+1       | Pen      | Notebook
+
+After 1NF:
+
+Orders
+------------------------
+OrderID | Product
+1       | Pen
+1       | Notebook
+
+2. Second Normal Form (2NF):
+Description:
+    Achieves 1NF and ensures all non-key attributes are fully dependent on the primary key (removes partial dependencies).
+Use: 
+    Split data into separate tables if attributes depend only on part of a composite key.
+Example:
+Before 2NF:
+
+OrderDetails
+------------------------
+OrderID | ProductID | ProductName
+
+After 2NF:
+
+Orders
+-----------------
+OrderID | ProductID
+
+Products
+-----------------
+ProductID | ProductName
+
+3. Third Normal Form (3NF)
+Description:
+    Achieves 2NF and ensures all attributes are dependent only on the primary key (removes transitive dependencies).
+Use: 
+    Eliminate indirect relationships between non-key attributes.
+Example:
+Before 3NF:
+
+Customers
+--------------------------
+CustomerID | CustomerName | City | ZipCode
+
+After 3NF:
+
+Customers
+-----------------
+CustomerID | CustomerName | ZipCode
+
+Locations
+-----------------
+ZipCode | City
+
+4. Boyce-Codd Normal Form (BCNF)
+Description:
+    A stricter version of 3NF where every determinant is a super key.
+Use: 
+    Use when there are overlapping candidate keys causing anomalies.
+Example:
+Before BCNF:
+
+Courses
+----------------------------
+CourseID | Instructor | Room
+
+Instructor->Room is redundant here, CourseID is primary_key
+
+After BCNF:
+
+Courses
+-----------------
+CourseID | Instructor
+
+Rooms
+-----------------
+Instructor | Room
+
+
+
+When to Use Them:
+1NF: Always start with this to create a proper table structure.
+2NF: Use when you have composite primary keys with partial dependencies.
+3NF: Use to remove non-key attribute dependencies for clean data separation.
+BCNF: Apply in rare cases to handle overlapping keys and advanced anomalies.
+
+_______________________________________________________________________________________________________________________________
+
+* DENORMALIZATION -
+
+Denormalization is the process of deliberately combining tables or adding redundant data to improve the performance of read-heavy operations in a database. It sacrifices some of the benefits of normalization (like reduced redundancy and improved consistency) for increased speed and simplicity in querying.
+
+Key Characteristics
+    Purpose: Optimize query performance by reducing the need for complex joins and lookups.
+    Trade-offs: Increases data redundancy and the risk of inconsistency.
+
+When to Use: 
+    Suitable for systems with high read-frequency, low update rates, or when performance is more critical than data integrity.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
