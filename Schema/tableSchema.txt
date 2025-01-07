@@ -1,0 +1,76 @@
+-- Create Product Categories Table
+CREATE TABLE Category (
+    CategoryID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(50) NOT NULL,
+    Description TEXT
+);
+
+-- Create Suppliers Table
+CREATE TABLE Supplier (
+    SupplierID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    Address TEXT,
+    Phone VARCHAR(20),
+    Email VARCHAR(100)
+);
+
+-- Create Products Table
+CREATE TABLE Product (
+    ProductID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    Description TEXT,
+    Price DECIMAL(10, 2) NOT NULL,
+    StockQuantity INT NOT NULL,
+    ReorderLevel INT NOT NULL,
+    CategoryID INT,
+    FOREIGN KEY (CategoryID) REFERENCES Category(CategoryID)
+);
+
+-- Create Customers Table
+CREATE TABLE Customer (
+    CustomerID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    Address TEXT,
+    Phone VARCHAR(20),
+    Email VARCHAR(100)
+);
+
+-- Create Orders Table
+CREATE TABLE `Order` (
+    OrderID INT AUTO_INCREMENT PRIMARY KEY,
+    CustomerID INT,
+    OrderDate DATETIME NOT NULL,
+    TotalAmount DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
+);
+
+-- Create Order Details Table
+CREATE TABLE OrderDetail (
+    OrderDetailID INT AUTO_INCREMENT PRIMARY KEY,
+    OrderID INT,
+    ProductID INT,
+    Quantity INT NOT NULL,
+    Price DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (OrderID) REFERENCES `Order`(OrderID),
+    FOREIGN KEY (ProductID) REFERENCES Product(ProductID)
+);
+
+-- Create Purchase Orders Table
+CREATE TABLE PurchaseOrder (
+    PurchaseOrderID INT AUTO_INCREMENT PRIMARY KEY,
+    SupplierID INT,
+    OrderDate DATETIME NOT NULL,
+    TotalAmount DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (SupplierID) REFERENCES Supplier(SupplierID)
+);
+
+-- Create Purchase Order Details Table
+CREATE TABLE PurchaseOrderDetail (
+    PurchaseOrderDetailID INT AUTO_INCREMENT PRIMARY KEY,
+    PurchaseOrderID INT,
+    ProductID INT,
+    Quantity INT NOT NULL,
+    Price DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (PurchaseOrderID) REFERENCES PurchaseOrder(PurchaseOrderID),
+    FOREIGN KEY (ProductID) REFERENCES Product(ProductID)
+);
