@@ -1,0 +1,33 @@
+WITH starting_table AS (
+SELECT image_id, score
+FROM (
+SELECT
+*,
+ROW_NUMBER() OVER (ORDER BY score DESC) AS row_num
+FROM unlabeled_image_predictions
+) numbered_rows
+WHERE row_num % 3 = 1 AND row_num <= 3 * 10000
+),
+ending_table AS (
+SELECT image_id, score
+FROM (
+SELECT
+*,
+ROW_NUMBER() OVER (ORDER BY score ASC) AS row_num
+FROM unlabeled_image_predictions
+) numbered_rows
+WHERE row_num % 3 = 1 AND row_num <= 3 * 10000
+),
+final_table AS (
+SELECT * FROM starting_table
+UNION ALL
+SELECT * FROM ending_table
+)
+SELECT
+image_id,
+CASE
+WHEN score >= 0.5 THEN 1
+ELSE 0
+END AS weak_label
+FROM final_table
+ORDER BY image_id;
