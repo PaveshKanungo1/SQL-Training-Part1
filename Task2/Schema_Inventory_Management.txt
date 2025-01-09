@@ -1,0 +1,70 @@
+-- Admin Table
+CREATE TABLE Admin (
+    Ald INT PRIMARY KEY,
+    AName TEXT,
+    AEmail TEXT,
+    pwd TEXT
+);
+
+-- User table
+CREATE TABLE User (
+    Uld INT PRIMARY KEY,
+    email TEXT,
+    pwd TEXT,
+    -- Assuming address is a separate table
+    address_id INT, 
+    FOREIGN KEY (address_id) REFERENCES Address(address_id) 
+);
+
+-- Customer table
+CREATE TABLE Customer (
+    Cld INT PRIMARY KEY,
+    CName TEXT,
+    CAdd TEXT,
+    CPhNo TEXT,
+    CEmail TEXT
+);
+
+-- Employee table
+CREATE TABLE Employee (
+    Eld INT PRIMARY KEY,
+    EName TEXT,
+    email TEXT
+);
+
+-- Order table
+CREATE TABLE Order (
+    Old INT PRIMARY KEY,
+    Cld INT,
+    orderDate DATETIME,
+    FOREIGN KEY (Cld) REFERENCES Customer(Cld)
+);
+
+-- Product table
+CREATE TABLE Product (
+    Pld INT PRIMARY KEY,
+    name TEXT,
+    description TEXT,
+    price FLOAT,
+    status TEXT
+);
+
+-- Delivery table
+CREATE TABLE Delivery (
+    dld INT PRIMARY KEY,
+    orderld INT,
+    customerld INT,
+    status TEXT,
+    FOREIGN KEY (orderld) REFERENCES Order(Old),
+    FOREIGN KEY (customerld) REFERENCES Customer(Cld)
+);
+
+-- Order_Product table
+CREATE TABLE Order_Product (
+    Old INT,
+    Pld INT,
+    quantity INT,
+    PRIMARY KEY (Old, Pld),
+    FOREIGN KEY (Old) REFERENCES Order(Old),
+    FOREIGN KEY (Pld) REFERENCES Product(Pld)
+);
